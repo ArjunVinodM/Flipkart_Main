@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Top Wears{% endblock title %}
+{% block main-content %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group">
+                <a href="{% url 'topwears' %}" class="list-group-item list-group-item-action active" aria-current="true">All Top Wears</a>
+                <a href="{% url 'topwears_data' 'Life' %}" class="list-group-item list-group-item-action" aria-current="true">Life</a>
+                <a href="{% url 'topwears_data' 'The_Modern_Soul' %}" class="list-group-item list-group-item-action" aria-current="true">The Modern Soul</a>
+                <a href="{% url 'topwears_data' 'Amazon' %}" class="list-group-item list-group-item-action" aria-current="true">Amazon</a>
+                <a href="{% url 'topwears_data' 'ENDEAVOUR' %}" class="list-group-item list-group-item-action" aria-current="true">ENDEAVOUR</a>
+                <a href="{% url 'topwears_data' 'Lee' %}" class="list-group-item list-group-item-action" aria-current="true">Lee</a>
+                <a href="{% url 'topwears_data' 'below' %}" class="list-group-item list-group-item-action" aria-current="true">Below 500</a>
+                <a href="{% url 'topwears_data' 'above' %}" class="list-group-item list-group-item-action" aria-current="true">Above 500</a>
+                <a href="{% url 'topwears_data' 'above2' %}" class="list-group-item list-group-item-action" aria-current="true">Above 1000</a>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                {% for Product in topwears %}
+                <div class="col-sm-4 text-center mb-4">
+                    <div class="card shadow">
+                    <a href="{% url 'product-detail' Product.id %}" class="btn"><img src="{{Product.product_image.url}}" alt="{{Product.title}}" height="200px" class="card-img-top"></a>
+                    <div class="card-body">
+                        <h6 class="fw-bold card-text text-truncate">{{Product.title}}</h6>
+                    </div>
+                    <div class="card-footer">
+                        <small class="fw-bold text-decoration-line-through">Rs. {{Product.selling_price}}</small><br><span class="fs-5 fw-bold">Rs. {{Product.discounted_price}}</span>
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

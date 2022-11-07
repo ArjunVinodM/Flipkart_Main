@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Product Detail{% endblock title %}
+{% block main-content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 text-center align-self-center">
+            <img src="{{product.product_image.url}}" alt="" class="img-fluid img-thumbnail"><br>
+            <h2> {{product.title}} </h2>
+            <hr>
+            <h4>Rs. {{product.discounted_price}} <br><small class="fw-light text-decoration-line-through">Rs.{{product.selling_price}}</small></h4><br>
+
+            {% if request.user.is_authenticated %}
+             {% if item_already_in_cart %}
+                <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Go to Cart</a>
+             {% else %}
+                <form action="/add-to-cart" class="d-inline">
+                    <input type="hidden" name="prod_id" value="{{product.id}}" id="prod_id">
+                    <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+                </form>
+             {% endif %}
+            {% endif %}
+
+            {% if not request.user.is_authenticated %}
+            <form action="/add-to-cart" class="d-inline">
+                <input type="hidden" name="prod_id" value="{{product.id}}" id="pro_id">
+                <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+            </form>
+            {% endif %}
+
+            <a href="{% url 'buy-now' %}" class="btn btn-danger px-5 py-2 ms-20">Buy Now</a>
+        </div>
+        <div class="col-sm-5 offset-sm-1">
+            <h5 class="mt-5">Available Offers</h5>
+            <ul>
+                <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>
+                <li>Bank Offer Additional ₹4,000 discount on SBI Credit Card and EMI txns on net cart value of INR 79,999 and above.</li>
+                <li>Bank Offer10% off on SBI Credit Card EMI Transactions, up to ₹2,250, on orders of ₹5000 and above.</li>
+                <li>No Cost EMI on Bajaj Finserv EMI Card on cart value above ₹2999.</li>
+                <li>Combo OfferBuy 3-4 items save 5%; Buy 5 or more save 10%See all products <h6>T&C</h6></li>
+            </ul>
+            <br>
+            <h5 class="mt-5">Product Description</h5>
+            <br>
+            <p>{{product.description}}</p>
+            <br>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock main-content %}

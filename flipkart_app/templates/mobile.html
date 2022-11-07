@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Mobile{% endblock title %}
+{% block main-content %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group">
+                <a href="{% url 'mobile' %}" class="list-group-item list-group-item-action active" aria-current="true">All Mobiles</a>
+                <a href="{% url 'mobile_data' 'Redmi' %}" class="list-group-item list-group-item-action" aria-current="true">Redmi</a>
+                <a href="{% url 'mobile_data' 'Samsung' %}" class="list-group-item list-group-item-action" aria-current="true">Samsung</a>
+                <a href="{% url 'mobile_data' 'Realme' %}" class="list-group-item list-group-item-action" aria-current="true">Realme</a>
+                <a href="{% url 'mobile_data' 'Poco' %}" class="list-group-item list-group-item-action" aria-current="true">Poco</a>
+                <a href="{% url 'mobile_data' 'Motorola' %}" class="list-group-item list-group-item-action" aria-current="true">Motorola</a>
+                <a href="{% url 'mobile_data' 'Tecno' %}" class="list-group-item list-group-item-action" aria-current="true">Tecno</a>
+                <a href="{% url 'mobile_data' 'iQOO' %}" class="list-group-item list-group-item-action" aria-current="true">iQoo</a>
+                <a href="{% url 'mobile_data' 'OnePlus' %}" class="list-group-item list-group-item-action" aria-current="true">OnePlus</a>
+                <a href="{% url 'mobile_data' 'below' %}" class="list-group-item list-group-item-action" aria-current="true">Below 10000</a>
+                <a href="{% url 'mobile_data' 'above' %}" class="list-group-item list-group-item-action" aria-current="true">Above 10000</a>
+                <a href="{% url 'mobile_data' 'above2' %}" class="list-group-item list-group-item-action" aria-current="true">Above 20000</a>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                {% for Product in mobiles %}
+                <div class="col-sm-4 text-center mb-4">
+                    <div class="card shadow">
+                    <a href="{% url 'product-detail' Product.id %}" class="btn"><img src="{{Product.product_image.url}}" alt="{{Product.title}}" height="200px" class="card-img-top"></a>
+                    <div class="card-body">
+                        <h6 class="fw-bold card-text text-truncate">{{Product.title}}</h6>
+                    </div>
+                    <div class="card-footer">
+                        <small class="fw-bold text-decoration-line-through">Rs. {{Product.selling_price}}</small><br><span class="fs-5 fw-bold">Rs. {{Product.discounted_price}}</span>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

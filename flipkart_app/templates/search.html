@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Search{% endblock title %}
+{% block main-content %}
+
+<div class="container">
+    <h3 class="my-4"><span class="text-muted"> search result for </span>{{request.GET.q}}</h3>
+    <div class="row">
+        {% for product in data %}
+        <div class="col-sm-3 text-center mb-4">
+            <div class="card shadow">
+                <a href="/product/{{product.slug}}/{{product.id}}" class="btn"><img src="{{product.product_image.url}}" style="height:150px; width:175px;" class="card-img-top" alt="{{product.title}}"></a>
+            <div class="card-body">
+                <h6 class="fw-bold card-text text-truncate">{{product.title}}</h6>
+            </div>
+            <div class="card-footer">
+                <small class="fw-bold text-decoration-line-through">Rs. {{product.selling_price}}</small><br>
+                <span class="fs-5 fw-bold">Rs. {{product.discounted_price}}</span>
+            </div>
+            </div>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock main-content %}
